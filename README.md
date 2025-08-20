@@ -1,7 +1,7 @@
 # L3582-490DER
 
 ## Overview
-This project contains two main components: a C++ UAC bypass demonstration and a Python shellcode encryption utility. **This is for educational purposes only** and was developed by ABOLHB to explore Windows API concepts and security mechanisms.
+This project contains two main components: a C++ UAC bypass demonstration and a Python shellcode encryption utility. **This is for educational purposes only** and was developed by 3582-490 to explore Windows API concepts and security mechanisms.
 
 ## DISCLAIMER
 **I, 3582-490, created this code solely for educational and research purposes. I do not endorse, encourage, or take responsibility for any misuse of this code. Unauthorized use of these techniques against systems you don't own is illegal and unethical. Use this knowledge responsibly and only in environments where you have explicit permission.**
