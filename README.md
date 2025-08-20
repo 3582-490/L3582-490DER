@@ -62,6 +62,8 @@ bool mason__xg() {
 
 ```
 
+**To activate the admin check and UAC bypass in the main function, remove the `//` comment markers before the if statement and function calls.**
+
 #### Shellcode Execution Code Explanation:
 ```cpp
 // Main function demonstrating XOR decryption and execution
