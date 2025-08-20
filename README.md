@@ -14,7 +14,7 @@ This C++ code demonstrates various Windows API concepts including potential UAC 
 #### UAC Bypass Code Explanation:
 ```cpp
 // UAC bypass technique using fodhelper (commented out for safety)
-/*
+
 void mason__xa() {
     // Creates registry entries to hijack the fodhelper.exe UAC bypass
     HKEY mason__xb; // Registry key handle
@@ -59,7 +59,7 @@ bool mason__xg() {
     }
     return mason__xh; // Return admin status
 }
-*/
+
 ```
 
 #### Shellcode Execution Code Explanation:
