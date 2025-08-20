@@ -62,7 +62,7 @@ bool mason__xg() {
 
 ```
 
-**To activate the admin check and UAC bypass in the main function, remove the `//` comment markers before the if statement and function calls.**
+**To activate the UAC bypass functionality, simply remove the comment markers `/*` and `*/` around the UAC bypass code section.**
 
 #### Shellcode Execution Code Explanation:
 ```cpp
@@ -98,6 +98,8 @@ int WINAPI WinMain(HINSTANCE mason__xk, HINSTANCE mason__xl, LPSTR mason__xm, in
     return 0;
 }
 ```
+
+**To activate the admin check and UAC bypass in the main function, remove the `//` comment markers before the if statement and function calls.**
 
 ### 2. ShellCodeXOR.py
 This Python utility encrypts binary files (like shellcode) using XOR encryption for use in the C++ program.
