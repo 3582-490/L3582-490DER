@@ -1,7 +1,5 @@
 // Coded by 3582-490 for educational purposes only
 // This is a demonstration code for learning Windows API concepts
-// Some techniques shown here may be monitored on platforms like GitHub
-
 #include <windows.h>
 #include <iostream>
 #include <shlobj.h>
